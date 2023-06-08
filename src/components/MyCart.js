@@ -13,6 +13,7 @@ const MyCart = () => {
  const [checking, setChecking] = useState(false);
 
 
+ // get ths shopping cart data
  useEffect(() => {
    if (!cartVisible) {
      return;
@@ -76,7 +77,9 @@ const MyCart = () => {
              justifyContent: "space-between",
            }}
          >
-           <Text strong={true}>{`Total price: $${cartData?.totalPrice}`}</Text>
+           <Text
+             strong={true}
+           >{`Total price: $${cartData?.total_price}`}</Text>
            <div>
              <Button onClick={onCloseDrawer} style={{ marginRight: 8 }}>
                Cancel
@@ -85,7 +88,7 @@ const MyCart = () => {
                onClick={onCheckOut}
                type="primary"
                loading={checking}
-               disabled={loading || cartData?.orderItemList.length === 0}
+               disabled={loading || cartData?.order_items.length === 0}
              >
                Checkout
              </Button>
@@ -96,11 +99,11 @@ const MyCart = () => {
        <List
          loading={loading}
          itemLayout="horizontal"
-         dataSource={cartData?.orderItemList}
+         dataSource={cartData?.order_items}
          renderItem={(item) => (
            <List.Item>
              <List.Item.Meta
-               title={item.menuItem.name}
+               title={item.menu_item_name}
                description={`$${item.price}`}
              />
            </List.Item>

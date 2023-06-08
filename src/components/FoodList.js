@@ -70,6 +70,12 @@ const FoodList = () => {
   }, [curRest]);
 
   // function component return html
+  // map input a funciton output a new array
+  // return AntD component Option
+  // html里写JavaScript用大括号括起来，这是JSX
+
+  // true && "Charlie" returns "Charlie"
+  // false && "Charlie" returns false
   return (
     <>
       <Select

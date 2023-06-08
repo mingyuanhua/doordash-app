@@ -27,7 +27,7 @@ export const login = (credentials) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data), // convert a JavaScript object (data) into a JSON string representation.
     }).then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw Error("Fail to sign up");
@@ -43,13 +43,28 @@ export const login = (credentials) => {
       }
    
    
-      return response.json();
+      return response.json(); //  reads the response body and parses it as JSON, returns a promise that resolves with the result of parsing the body text as JSON
     });
    };
    
    
+   /*
+   
+   
+      What's the difference between JSON and JS Object?
+      JSON - string, but it has the format of a obj i.e. {key: value}
+      - key: must be double quoted
+   
+   
+      JS Object - Object {key: value}
+      - key: double quoted?
+   
+   
+   */
+   
+   
    export const getRestaurants = () => {
-    return fetch("/restaurants").then((response) => {
+    return fetch("/restaurants/menu").then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw Error("Fail to get restaurants");
       }
@@ -73,7 +88,12 @@ export const login = (credentials) => {
    
    
    export const checkout = () => {
-    return fetch("/checkout").then((response) => {
+    return fetch("/cart/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw Error("Fail to checkout");
       }
@@ -82,11 +102,17 @@ export const login = (credentials) => {
    
    
    export const addItemToCart = (itemId) => {
-    return fetch(`/order/${itemId}`, {
+    const payload = {
+      menu_id: itemId,
+    };
+   
+   
+    return fetch(`/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(payload),
     }).then((response) => {
       if (response.status < 200 || response.status >= 300) {
         throw Error("Fail to add menu item to shopping cart");
